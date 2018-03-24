@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class invader : MonoBehaviour {
-    public float velocity = 0.03f;
+    public float velocity = 2f;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +14,7 @@ public class invader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.transform.position += new Vector3(0, -velocity, 0);
+        gameObject.transform.position += new Vector3(0, -velocity * Time.deltaTime, 0);
     }
     void OnTriggerEnter2D(Collider2D col) //名為col的觸發事件
     {

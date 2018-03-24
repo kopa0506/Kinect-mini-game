@@ -7,6 +7,7 @@ TagManager:
   - emeny
   - bullet
   - ship
+  - rock
   layers:
   - Default
   - TransparentFX
@@ -50,9 +51,9 @@ TagManager:
   - name: ship
     uniqueID: 1804589319
     locked: 0
-  - name: bullet
-    uniqueID: 311746057
-    locked: 0
   - name: invader
     uniqueID: 4052842009
+    locked: 0
+  - name: bullet
+    uniqueID: 311746057
     locked: 0

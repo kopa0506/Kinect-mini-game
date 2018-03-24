@@ -14,12 +14,10 @@ public class KinectManager : MonoBehaviour
     public GameObject kinectAvailableText;
     public Text handXText;
 
-
-    public GameObject SpaceShip;
-
     public bool IsAvailable;
-    private Vector3 ShipPosition;
+    public float ShipPosition;
     public bool IsFire;
+    public bool IsPlaying;
 
     public static KinectManager instance = null;
 
@@ -59,7 +57,6 @@ public class KinectManager : MonoBehaviour
 
             _bodies = new Body[_sensor.BodyFrameSource.BodyCount];
         }
-        ShipPosition = SpaceShip.transform.position;
     }
 
     // Update is called once per frame
@@ -75,21 +72,29 @@ public class KinectManager : MonoBehaviour
             {
                 frame.GetAndRefreshBodyData(_bodies);
 
-                foreach (var body in _bodies)
+                foreach (var body in _bodies.Where(b => b.IsTracked))
                 {
                     IsAvailable = true;
-                    /*
+                    
                     if (body.HandRightConfidence == TrackingConfidence.High && body.HandRightState == HandState.Lasso)
                     {
                         IsFire = true;
-                    }*/
-                    if(body!=null)
+                    }
+                    else
                     {
-                        SpaceShip.transform.position = ShipPosition + Vector3.right * RescalingToRangesB(-1, 1, -2, 2, body.Lean.X);
-                        handXText.text = body.Lean.X.ToString();
+                        IsFire = false;
                     }
                     
+                    ShipPosition =  RescalingToRangesB(-1, 1, -3, 3, body.Lean.X);
+                    handXText.text = body.Lean.X.ToString();
+                    IsPlaying = true;
                 }
+                if (_bodies == null)
+                {
+                    Debug.Log("oh no");
+                    IsPlaying = false;
+                }
+                    
 
                 frame.Dispose();
                 frame = null;

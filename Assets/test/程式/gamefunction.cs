@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //使用UI
+using UnityEngine.SceneManagement;
 
 public class gamefunction : MonoBehaviour {
     private List<GameObject> emeny_copylist = new List<GameObject>();
+    private List<GameObject> rock_copylist = new List<GameObject>();
     public GameObject emeny; //宣告物件，名稱Emeny
+    public GameObject rock; //宣告物件，名稱Rock
     public GameObject ship; //宣告物件，名稱Ship
-    public float time; //宣告浮點數，名稱time
+
+    public float Y = 3.75f;
+    public float espawn; //宣告浮點數，名稱espawn
+    public float rspawn; //宣告浮點數，名稱rspawn
+    private float time; //宣告浮點數，名稱time
+    private float rtime; //宣告浮點數，名稱rtime
 
     bool product_emeny = true;
 
     public GameObject LoseText;
+    public GameObject WinText = null;
     public Text ScoreText; //宣告一個ScoreText的text
     public int Score = 0; // 宣告一整數 Score
     public Text LifeText; //宣告一個LifeText的text
@@ -23,22 +32,38 @@ public class gamefunction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        time += Time.deltaTime; //時間增加
-        if (time > 0.5f) //如果時間大於0.5(秒)
+        if(KinectManager.instance.IsPlaying)
         {
-            Vector3 pos = new Vector3(Random.Range(-2.5f, 2.5f), 4.5f, 0); //宣告位置pos，Random.Range(-2.5f,2.5f)代表X是2.5到-2.5之間隨機
-            if(product_emeny == true)
+            time += Time.deltaTime; //時間增加
+            if (time > espawn) //如果時間大於0.5(秒)
             {
-                GameObject thisobject = Instantiate(emeny, pos, transform.rotation) as GameObject;
-                emeny_copylist.Add(thisobject);//產生敵人
+                Vector3 pos = new Vector3(Random.Range(-2.5f, 2.5f), Y, 0); //宣告位置pos，Random.Range(-2.5f,2.5f)代表X是2.5到-2.5之間隨機
+                if (product_emeny == true)
+                {
+                    GameObject thisobject = Instantiate(emeny, pos, transform.rotation) as GameObject;
+                    emeny_copylist.Add(thisobject);//產生敵人
+
+                }
+                time = 0f; //時間歸零
             }
-            time = 0f; //時間歸零
+            rtime += Time.deltaTime; //時間增加
+            if (rtime > rspawn) //如果時間大於0.5(秒)
+            {
+                Vector3 rpos = new Vector3(Random.Range(-2.5f, 2.5f), Y, 0); //宣告位置pos，Random.Range(-2.5f,2.5f)代表X是2.5到-2.5之間隨機
+                if (product_emeny == true)
+                {
+                    GameObject robject = Instantiate(rock, rpos, transform.rotation) as GameObject;
+                    rock_copylist.Add(robject);//產生敵人
+                }
+                rtime = 0f; //時間歸零
+            }
         }
+        
     }
 
     public void AddScore()
     {
-        Score += 1; //分數+1
+        Score += 3; //分數+1
         ScoreText.text = "Score: " + Score; // 更改ScoreText的內容
     }
     public void MinusScore()
@@ -46,6 +71,16 @@ public class gamefunction : MonoBehaviour {
         Score -= 1; //分數+1
         ScoreText.text = "Score: " + Score; // 更改ScoreText的內容
     }
+
+    public int GetScore()
+    {
+        return Score;
+    }
+    public void SetScore(int n)
+    {
+        Score = n;
+    }
+
     public void MinusLife()
     {
         StartCoroutine(TurnRed());
@@ -54,17 +89,23 @@ public class gamefunction : MonoBehaviour {
             EndGame();
         LifeText.text = "Life: " + Life; // 更改ScoreText的內容
     }
-    
+
     public void EndGame()
     {
         product_emeny = false;
-        foreach(GameObject d in emeny_copylist)
+        foreach (GameObject d in emeny_copylist)
+        {
+            Destroy(d);
+        }
+        foreach (GameObject d in rock_copylist)
         {
             Destroy(d);
         }
         emeny_copylist.Clear();
+        rock_copylist.Clear();
         ship.SetActive(false);
         LoseText.SetActive(true);
+        StartCoroutine(WaitToBack());
     }
     private IEnumerator TurnRed()
     {
@@ -79,5 +120,27 @@ public class gamefunction : MonoBehaviour {
         yield return new WaitForSeconds(0.2f);
         ship.GetComponent<SpriteRenderer>().color = col;
         yield return new WaitForSeconds(0.2f);
+    }
+    private IEnumerator WaitToBack()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("menu", LoadSceneMode.Single); ;
+    }
+    public void WinGame()
+    {
+        product_emeny = false;
+        foreach (GameObject d in emeny_copylist)
+        {
+            Destroy(d);
+        }
+        foreach (GameObject d in rock_copylist)
+        {
+            Destroy(d);
+        }
+        emeny_copylist.Clear();
+        rock_copylist.Clear();
+        ship.SetActive(false);
+        WinText.SetActive(true);
+        StartCoroutine(WaitToBack());
     }
 }

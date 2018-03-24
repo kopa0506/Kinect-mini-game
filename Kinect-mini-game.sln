@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-mini-game.Plugins", "Kinect-mini-game.Plugins.csproj", "{1931A4E2-A1E7-A8B3-CA45-12EE2919D197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-mini-game", "Kinect-mini-game.csproj", "{3F8DB8B3-96E5-CA53-EF09-29BBC8DE95A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-mini-game.Editor.Plugins", "Kinect-mini-game.Editor.Plugins.csproj", "{3C886307-C0B8-DCBF-453D-6529F6D8C86D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1931A4E2-A1E7-A8B3-CA45-12EE2919D197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1931A4E2-A1E7-A8B3-CA45-12EE2919D197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1931A4E2-A1E7-A8B3-CA45-12EE2919D197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1931A4E2-A1E7-A8B3-CA45-12EE2919D197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F8DB8B3-96E5-CA53-EF09-29BBC8DE95A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F8DB8B3-96E5-CA53-EF09-29BBC8DE95A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F8DB8B3-96E5-CA53-EF09-29BBC8DE95A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F8DB8B3-96E5-CA53-EF09-29BBC8DE95A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C886307-C0B8-DCBF-453D-6529F6D8C86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C886307-C0B8-DCBF-453D-6529F6D8C86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C886307-C0B8-DCBF-453D-6529F6D8C86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C886307-C0B8-DCBF-453D-6529F6D8C86D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
